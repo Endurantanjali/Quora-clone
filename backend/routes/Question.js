@@ -34,8 +34,7 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    await questionDB
-      .aggregate([
+    await questionDB.aggregate([
         {
           $lookup: {
             from: "answers", //collection to join
@@ -45,8 +44,7 @@ router.get("/", async (req, res) => {
           },
         },
       ])
-      .exec()
-      .then((doc) => {
+      .exec().then((doc) => {
         res.status(200).send(doc);
       })
       .catch((error) => {
